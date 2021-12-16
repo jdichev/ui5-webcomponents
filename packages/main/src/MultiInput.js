@@ -190,13 +190,19 @@ class MultiInput extends Input {
 
 	_onTokenizerKeydown(event) {
 		if (isRight(event)) {
-			const lastTokenIndex = this.tokenizer._tokens.length - 1;
+			const lastTokenIndex = this.tokens.length - 1;
 
-			if (this.tokenizer._tokens[lastTokenIndex] === document.activeElement) {
+			if (this.tokens[lastTokenIndex] === document.activeElement) {
 				setTimeout(() => {
 					this.focus();
 				}, 0);
 			}
+		}
+
+		if (!!(event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "a") {
+			event.preventDefault();
+
+			this.tokenizer._toggleTokenSelection(this.tokens);
 		}
 	}
 
